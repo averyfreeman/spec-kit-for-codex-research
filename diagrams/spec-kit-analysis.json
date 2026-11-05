@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "title": "Spec-Driven Development Ecosystem Research",
+  "description": "Editable diagrams for project lineage, workflow comparison, implementation dependencies, extension selection, and OpenAI plugin fit.",
+  "diagrams": [
+    {
+      "id": "lineage",
+      "title": "Lineage: independent repositories and explicit adoption",
+      "kind": "raw",
+      "description": "The dotted links represent documented adoption or specialization; no line means no direct ancestry was established in the inspected histories.",
+      "source": "flowchart LR\n  official[\"GitHub Spec Kit\"]\n  specagents[\"Microsoft spec-to-agents\"]\n  starter[\"Microsoft agentic-sdlc-starter\"]\n  extensions[\"MartyBonacci spec-kit-extensions\"]\n  swarm[\"SpecSwarm\"]\n  iac[\"IBM IaC Spec Kit\"]\n  official -. \"workflow adopted in Sep 2025\" .-> specagents\n  official -. \"methodology and templates\" .-> extensions\n  extensions -. \"same maintainer moved focus\" .-> swarm\n  official -. \"specialized IaC implementation\" .-> iac\n  note[\"No direct ancestry evidence\"]\n  starter --- note"
+    },
+    {
+      "id": "workflow-comparison",
+      "title": "Spec Kit and SpecSwarm: different control surfaces",
+      "kind": "raw",
+      "source": "flowchart LR\n  subgraph sk[\"GitHub Spec Kit\"]\n    skinit[\"specify init\"] --> skspec[\"specify and clarify\"] --> skplan[\"plan and tasks\"] --> skimpl[\"implement\"] --> skconv[\"converge and review\"]\n    skext[\"Extensions, presets, workflows\"] -. \"opt in\" .-> skspec\n  end\n  subgraph ss[\"SpecSwarm for Claude Code\"]\n    ssinit[\"ss:init or ss:go\"] --> sscontext[\"project rules and memory\"] --> ssbuild[\"build, fix, or modify\"] --> ssagents[\"agent orchestration and task checks\"] --> ssquality[\"quality score and verification\"] --> ssship[\"review, threshold, merge\"]\n  end"
+    },
+    {
+      "id": "sample-architecture",
+      "title": "AcroYoga sample: workflow portability versus cloud coupling",
+      "kind": "raw",
+      "source": "flowchart LR\n  spec[\"Specs, plans, tasks, constitution\"] --> agent[\"Copilot agent and prompt files\"] --> app[\"Next.js and TypeScript application\"]\n  app --> db[\"PostgreSQL data layer\"]\n  app --> local[\"Local tests: PGlite or PostgreSQL\"]\n  app --> build[\"Container image and GitHub Actions\"]\n  build --> bicep[\"Bicep and azd\"] --> aca[\"Azure Container Apps\"]\n  aca --> azuredb[\"Azure PostgreSQL Flexible Server\"]\n  aca --> services[\"Blob, Key Vault, Managed Identity, Front Door\"]\n  build -. \"provider port: replace identity, storage, database, IaC, deploy\" .-> other[\"AWS, GCP, IBM Cloud, or local stack\"]"
+    },
+    {
+      "id": "extension-routing",
+      "title": "Use workflows by change type, not by default",
+      "kind": "raw",
+      "source": "flowchart TD\n  request[\"Change request\"] --> classify{\"What kind of work?\"}\n  classify -->|\"new user behavior\"| feature[\"Core specify, plan, tasks, implement\"]\n  classify -->|\"bug\"| bug[\"One bug workflow with regression evidence\"]\n  classify -->|\"existing project adoption\"| brown[\"Brownfield scan and validate\"]\n  brown --> review[\"Human reviews discovered facts\"] --> adopt[\"Bootstrap or migrate one slice\"]\n  classify -->|\"refactor, hotfix, deprecation\"| lifecycle[\"Install focused lifecycle workflow if recurring\"]\n  classify -->|\"infrastructure\"| iac[\"IaC toolkit or infrastructure preset\"]\n  classify -->|\"small low-risk edit\"| light[\"Use a lighter change path\"]\n  bug --> test[\"Run checks; keep evidence\"]\n  feature --> test\n  lifecycle --> test\n  iac --> test\n  light --> test"
+    },
+    {
+      "id": "plugin-fit",
+      "title": "An OpenAI plugin can carry the workflow and gates",
+      "kind": "raw",
+      "source": "flowchart LR\n  subgraph plugin[\"OpenAI plugin layer\"]\n    skill[\"Skill: choose and order stages\"] --> tools[\"MCP tools or host tools\"] --> access[\"Scoped repo access and approval\"]\n    ui[\"Optional spec and diff review UI\"] -. \"when useful\" .-> access\n  end\n  subgraph delivery[\"Spec-driven delivery loop\"]\n    request[\"Request\"] --> specify[\"Specify\"] --> gate1{\"Intent clear and approved?\"} --> plan[\"Plan and tasks\"] --> gate2{\"Plan accepted?\"} --> implement[\"Implement on branch\"] --> validate[\"Tests and spec verification\"] --> gate3{\"Checks pass and reviewer approves?\"} --> merge[\"Merge or publish\"]\n  end\n  access --> request\n  gate1 -. \"unclear: stop and clarify\" .-> block[\"Blocked until clarified\"]\n  validate -. \"failure: repair and re-run\" .-> implement\n  gate3 -. \"denied: do not merge\" .-> block"
+    }
+  ]
+}
